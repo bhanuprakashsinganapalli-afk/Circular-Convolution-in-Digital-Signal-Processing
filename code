@@ -1,0 +1,43 @@
+#include <stdio.h>
+#define N 4
+
+float x[N] = {1, 3, 2, 4};
+float h[N] = {1, 2, 3, 4};
+float y[N];
+
+void circularConvolution(float *x, float *h, float *y, int n);
+
+void main(void)
+{
+    int i;
+    circularConvolution(x, h, y, N);
+
+    printf("Circular Convolution Result:\n");
+
+    for (i = 0; i < N; i++)
+    {
+        printf("y[%d] = %.2f\n", i, y[i]);
+    }
+
+    while(1);
+}
+
+void circularConvolution(float *x, float *h, float *y, int n)
+{
+    int i, j, k;
+
+    for (i = 0; i < n; i++)
+    {
+        y[i] = 0;
+
+        for (j = 0; j < n; j++)
+        {
+            k = (i - j);
+
+            if (k < 0)
+                k += n;
+
+            y[i] += x[j] * h[k];
+        }
+    }
+}
